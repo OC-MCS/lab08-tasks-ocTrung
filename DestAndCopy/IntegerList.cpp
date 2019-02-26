@@ -15,6 +15,10 @@ IntegerList::IntegerList(int size)
       list[ndx] = 0;
 }
 
+IntegerList::~IntegerList()
+{
+	delete [] list;
+}
 
 //***********************************************************
 // isValid member function.                                 *
@@ -70,4 +74,35 @@ int IntegerList::getElement(int element) const
 int IntegerList::getNumElements() const
 {
 	return numElements;
+}
+
+IntegerList IntegerList::operator=(const IntegerList & other)
+{
+	if (this != &other)
+	{
+		int OtherSize = other.getNumElements();
+		delete[] list;
+		list = new int[OtherSize];
+
+		for (int i = 0; i < OtherSize; i++)
+		{
+			list[i] = other.getElement(i);
+		}
+	}
+
+	return *this;
+}
+
+// copy constructor
+IntegerList::IntegerList(const IntegerList & other)
+{
+	int OtherSize = other.getNumElements();
+
+	list = new int[OtherSize];
+
+	for (int i = 0; i < OtherSize; i++)
+	{
+		list[i] = other.getElement(i);
+		//cout << other.getElement(i) << endl;
+	}
 }
